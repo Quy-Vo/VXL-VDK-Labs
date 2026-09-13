@@ -1,0 +1,29 @@
+# 1. Bỏ qua các file hệ thống của Hệ điều hành
+.DS_Store
+Thumbs.db
+
+# 2. Bỏ qua các thư mục build của STM32CubeIDE nhưng GIỮ LẠI file .hex
+Debug/*
+Release/*
+!Debug/*.hex
+!Release/*.hex
+
+# 3. Bỏ qua các file rác sinh ra trong quá trình biên dịch (đề phòng nằm rải rác)
+*.o
+*.elf
+*.map
+*.list
+*.bin
+*.su
+*.d
+
+# 4. Bỏ qua các file cấu hình cá nhân của Eclipse/STM32CubeIDE
+# Lưu ý: Không bỏ qua .project, .cproject và thư mục .settings/ vì người khác cần nó để mở project
+.metadata/
+.launches/
+
+# 5. Bỏ qua các file tạm và file backup do Proteus tự sinh ra
+Backup Of *.pdsprj
+Last Loaded *.pdsprj
+*.pdsbak
+*.workspace 
