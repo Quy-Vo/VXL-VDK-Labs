@@ -94,32 +94,52 @@ int main(void)
   while (1)
     {
 
-    /* USER CODE END WHILE */
-	  // 1. Kiểm tra trạng thái theo biến đếm
+	  // --- PHA 1: Trục 1 XANH (3s) | Trục 2 ĐỎ (5s) ---
 	      if (counter == 0) {
-	          // Giây 0 đến 4: Đỏ (LR01) SÁNG (5s)
-	          HAL_GPIO_WritePin(LR01_GPIO_Port, LR01_Pin, GPIO_PIN_RESET);
-	          HAL_GPIO_WritePin(LY01_GPIO_Port, LY01_Pin, GPIO_PIN_SET);
-	          HAL_GPIO_WritePin(LG01_GPIO_Port, LG01_Pin, GPIO_PIN_SET);
-	      }
-	      else if (counter == 5) {
-	          // Giây 5 đến 7: Xanh (LG01) SÁNG (3s)
-	          HAL_GPIO_WritePin(LR01_GPIO_Port, LR01_Pin, GPIO_PIN_SET);
+	          // Trục 1: Xanh sáng, tắt Đỏ/Vàng
 	          HAL_GPIO_WritePin(LG01_GPIO_Port, LG01_Pin, GPIO_PIN_RESET);
-	      }
-	      else if (counter == 8) {
-	          // Giây 8 đến 9: Vàng (LY01) SÁNG (2s)
-	          HAL_GPIO_WritePin(LG01_GPIO_Port, LG01_Pin, GPIO_PIN_SET);
-	          HAL_GPIO_WritePin(LY01_GPIO_Port, LY01_Pin, GPIO_PIN_RESET);
+	          HAL_GPIO_WritePin(LR01_GPIO_Port, LR01_Pin, GPIO_PIN_SET);
+	          HAL_GPIO_WritePin(LY01_GPIO_Port, LY01_Pin, GPIO_PIN_SET);
+
+	          // Trục 2: Đỏ sáng, tắt Xanh/Vàng
+	          HAL_GPIO_WritePin(LR02_GPIO_Port, LR02_Pin, GPIO_PIN_RESET);
+	          HAL_GPIO_WritePin(LY02_GPIO_Port, LY02_Pin, GPIO_PIN_SET);
+	          HAL_GPIO_WritePin(LG02_GPIO_Port, LG02_Pin, GPIO_PIN_SET);
 	      }
 
-	      // 2. Tăng biến đếm và giới hạn chu kỳ (Tổng 10 giây)
+	      // --- PHA 2: Trục 1 VÀNG (2s) | Trục 2 vẫn ĐỎ ---
+	      else if (counter == 3) {
+	          // Trục 1: Tắt Xanh, Bật Vàng
+	          HAL_GPIO_WritePin(LG01_GPIO_Port, LG01_Pin, GPIO_PIN_SET);
+	          HAL_GPIO_WritePin(LY01_GPIO_Port, LY01_Pin, GPIO_PIN_RESET);
+	          // Trục 2: Giữ nguyên trạng thái Đỏ từ Pha 1
+	      }
+
+	      // --- PHA 3: Trục 1 ĐỎ (5s) | Trục 2 XANH (3s) ---
+	      else if (counter == 5) {
+	          // Trục 1: Tắt Vàng, Bật Đỏ
+	          HAL_GPIO_WritePin(LY01_GPIO_Port, LY01_Pin, GPIO_PIN_SET);
+	          HAL_GPIO_WritePin(LR01_GPIO_Port, LR01_Pin, GPIO_PIN_RESET);
+
+	          // Trục 2: Tắt Đỏ, Bật Xanh
+	          HAL_GPIO_WritePin(LR02_GPIO_Port, LR02_Pin, GPIO_PIN_SET);
+	          HAL_GPIO_WritePin(LG02_GPIO_Port, LG02_Pin, GPIO_PIN_RESET);
+	      }
+
+	      // --- PHA 4: Trục 1 vẫn ĐỎ | Trục 2 VÀNG (2s) ---
+	      else if (counter == 8) {
+	          // Trục 1: Giữ nguyên trạng thái Đỏ từ Pha 3
+
+	          // Trục 2: Tắt Xanh, Bật Vàng
+	          HAL_GPIO_WritePin(LG02_GPIO_Port, LG02_Pin, GPIO_PIN_SET);
+	          HAL_GPIO_WritePin(LY02_GPIO_Port, LY02_Pin, GPIO_PIN_RESET);
+	      }
+
+	      // Tăng biến đếm và Delay
 	      counter++;
 	      if (counter >= 10) {
 	          counter = 0;
 	      }
-
-	      // 3. DUY NHẤT 1 lệnh delay
 	      HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
     }
