@@ -96,26 +96,30 @@ int main(void)
 
     /* USER CODE END WHILE */
 	  // 1. Kiểm tra trạng thái theo biến đếm
-	  if (counter == 0) {
-	          // Giây 0 và 1: Đỏ (LR01) SÁNG, Vàng (LY01) TẮT
+	      if (counter == 0) {
+	          // Giây 0 đến 4: Đỏ (LR01) SÁNG (5s)
 	          HAL_GPIO_WritePin(LR01_GPIO_Port, LR01_Pin, GPIO_PIN_RESET);
 	          HAL_GPIO_WritePin(LY01_GPIO_Port, LY01_Pin, GPIO_PIN_SET);
+	          HAL_GPIO_WritePin(LG01_GPIO_Port, LG01_Pin, GPIO_PIN_SET);
 	      }
-	      else if (counter == 2) {
-	          // Giây 2 và 3: Đỏ (LR01) TẮT, Vàng (LY01) SÁNG
+	      else if (counter == 5) {
+	          // Giây 5 đến 7: Xanh (LG01) SÁNG (3s)
 	          HAL_GPIO_WritePin(LR01_GPIO_Port, LR01_Pin, GPIO_PIN_SET);
+	          HAL_GPIO_WritePin(LG01_GPIO_Port, LG01_Pin, GPIO_PIN_RESET);
+	      }
+	      else if (counter == 8) {
+	          // Giây 8 đến 9: Vàng (LY01) SÁNG (2s)
+	          HAL_GPIO_WritePin(LG01_GPIO_Port, LG01_Pin, GPIO_PIN_SET);
 	          HAL_GPIO_WritePin(LY01_GPIO_Port, LY01_Pin, GPIO_PIN_RESET);
 	      }
 
-	      // 2. Tăng biến đếm mỗi chu kỳ
+	      // 2. Tăng biến đếm và giới hạn chu kỳ (Tổng 10 giây)
 	      counter++;
-
-	      // 3. Giới hạn chu kỳ (Tổng thời gian là 4 giây)
-	      if (counter >= 4) {
-	          counter = 0; // Trở lại từ đầu
+	      if (counter >= 10) {
+	          counter = 0;
 	      }
 
-	      // 4. DUY NHẤT 1 lệnh delay
+	      // 3. DUY NHẤT 1 lệnh delay
 	      HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
     }
