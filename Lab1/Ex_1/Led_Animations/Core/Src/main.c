@@ -96,7 +96,7 @@ int main(void)
   void display7SEG(int num) {
       if (num < 0 || num > 9) return;
 
-      // Ma trận Anode chung: 0 là SÁNG, 1 là TẮT
+      // Ma trận Anode chung: 0 là S�?NG, 1 là TẮT
       // Cột tương ứng: {a(s0), b(s1), c(s2), d(s3), e(s4), f(s5), g(s6)}
       uint8_t segMatrix[10][7] = {
           {0, 0, 0, 0, 0, 0, 1}, // Số 0
@@ -111,7 +111,7 @@ int main(void)
           {0, 0, 0, 0, 1, 0, 0}  // Số 9
       };
 
-      // Ánh xạ xuất tín hiệu ra các chân từ s0 đến s6
+      // �?nh xạ xuất tín hiệu ra các chân từ s0 đến s6
       HAL_GPIO_WritePin(s0_GPIO_Port, s0_Pin, segMatrix[num][0]);
       HAL_GPIO_WritePin(s1_GPIO_Port, s1_Pin, segMatrix[num][1]);
       HAL_GPIO_WritePin(s2_GPIO_Port, s2_Pin, segMatrix[num][2]);
@@ -130,8 +130,8 @@ int main(void)
 
 	  counter++;
 	  if (counter >= 10) {
-	     counter = 0;
-	  }
+	  	     counter = 0;
+	  	  }
 
 
 	  HAL_Delay(1000);
@@ -185,10 +185,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, s0_Pin|s1_Pin|s2_Pin|s3_Pin
+  HAL_GPIO_WritePin(GPIOB, s0_Pin|s1_Pin|s2_Pin|s3_Pin
                           |s4_Pin|s5_Pin|s6_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : s0_Pin s1_Pin s2_Pin s3_Pin
@@ -198,7 +198,7 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
 

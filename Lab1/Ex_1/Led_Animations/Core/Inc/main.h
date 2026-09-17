@@ -59,19 +59,19 @@ void Error_Handler(void);
 
 /* Private defines -----------------------------------------------------------*/
 #define s0_Pin GPIO_PIN_0
-#define s0_GPIO_Port GPIOA
+#define s0_GPIO_Port GPIOB
 #define s1_Pin GPIO_PIN_1
-#define s1_GPIO_Port GPIOA
+#define s1_GPIO_Port GPIOB
 #define s2_Pin GPIO_PIN_2
-#define s2_GPIO_Port GPIOA
+#define s2_GPIO_Port GPIOB
 #define s3_Pin GPIO_PIN_3
-#define s3_GPIO_Port GPIOA
+#define s3_GPIO_Port GPIOB
 #define s4_Pin GPIO_PIN_4
-#define s4_GPIO_Port GPIOA
+#define s4_GPIO_Port GPIOB
 #define s5_Pin GPIO_PIN_5
-#define s5_GPIO_Port GPIOA
+#define s5_GPIO_Port GPIOB
 #define s6_Pin GPIO_PIN_6
-#define s6_GPIO_Port GPIOA
+#define s6_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
