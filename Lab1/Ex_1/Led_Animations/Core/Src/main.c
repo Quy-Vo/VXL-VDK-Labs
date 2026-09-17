@@ -88,59 +88,53 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
-  int counter = 0;
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+  /* USER CODE BEGIN 0 */
+  void display7SEG(int num) {
+      if (num < 0 || num > 9) return;
+
+      // Ma trận Anode chung: 0 là SÁNG, 1 là TẮT
+      // Cột tương ứng: {a(s0), b(s1), c(s2), d(s3), e(s4), f(s5), g(s6)}
+      uint8_t segMatrix[10][7] = {
+          {0, 0, 0, 0, 0, 0, 1}, // Số 0
+          {1, 0, 0, 1, 1, 1, 1}, // Số 1
+          {0, 0, 1, 0, 0, 1, 0}, // Số 2
+          {0, 0, 0, 0, 1, 1, 0}, // Số 3
+          {1, 0, 0, 1, 1, 0, 0}, // Số 4
+          {0, 1, 0, 0, 1, 0, 0}, // Số 5
+          {0, 1, 0, 0, 0, 0, 0}, // Số 6
+          {0, 0, 0, 1, 1, 1, 1}, // Số 7
+          {0, 0, 0, 0, 0, 0, 0}, // Số 8
+          {0, 0, 0, 0, 1, 0, 0}  // Số 9
+      };
+
+      // Ánh xạ xuất tín hiệu ra các chân từ s0 đến s6
+      HAL_GPIO_WritePin(s0_GPIO_Port, s0_Pin, segMatrix[num][0]);
+      HAL_GPIO_WritePin(s1_GPIO_Port, s1_Pin, segMatrix[num][1]);
+      HAL_GPIO_WritePin(s2_GPIO_Port, s2_Pin, segMatrix[num][2]);
+      HAL_GPIO_WritePin(s3_GPIO_Port, s3_Pin, segMatrix[num][3]);
+      HAL_GPIO_WritePin(s4_GPIO_Port, s4_Pin, segMatrix[num][4]);
+      HAL_GPIO_WritePin(s5_GPIO_Port, s5_Pin, segMatrix[num][5]);
+      HAL_GPIO_WritePin(s6_GPIO_Port, s6_Pin, segMatrix[num][6]);
+  }
+  /* USER CODE END 0 */
+  int counter=0;
   while (1)
-    {
+  {
+    /* USER CODE END WHILE */
+	  display7SEG(counter);
 
-	  // --- PHA 1: Trục 1 XANH (3s) | Trục 2 ĐỎ (5s) ---
-	      if (counter == 0) {
-	          // Trục 1: Xanh sáng, tắt Đỏ/Vàng
-	          HAL_GPIO_WritePin(LG01_GPIO_Port, LG01_Pin, GPIO_PIN_RESET);
-	          HAL_GPIO_WritePin(LR01_GPIO_Port, LR01_Pin, GPIO_PIN_SET);
-	          HAL_GPIO_WritePin(LY01_GPIO_Port, LY01_Pin, GPIO_PIN_SET);
 
-	          // Trục 2: Đỏ sáng, tắt Xanh/Vàng
-	          HAL_GPIO_WritePin(LR02_GPIO_Port, LR02_Pin, GPIO_PIN_RESET);
-	          HAL_GPIO_WritePin(LY02_GPIO_Port, LY02_Pin, GPIO_PIN_SET);
-	          HAL_GPIO_WritePin(LG02_GPIO_Port, LG02_Pin, GPIO_PIN_SET);
-	      }
+	  counter++;
+	  if (counter >= 10) {
+	     counter = 0;
+	  }
 
-	      // --- PHA 2: Trục 1 VÀNG (2s) | Trục 2 vẫn ĐỎ ---
-	      else if (counter == 3) {
-	          // Trục 1: Tắt Xanh, Bật Vàng
-	          HAL_GPIO_WritePin(LG01_GPIO_Port, LG01_Pin, GPIO_PIN_SET);
-	          HAL_GPIO_WritePin(LY01_GPIO_Port, LY01_Pin, GPIO_PIN_RESET);
-	          // Trục 2: Giữ nguyên trạng thái Đỏ từ Pha 1
-	      }
 
-	      // --- PHA 3: Trục 1 ĐỎ (5s) | Trục 2 XANH (3s) ---
-	      else if (counter == 5) {
-	          // Trục 1: Tắt Vàng, Bật Đỏ
-	          HAL_GPIO_WritePin(LY01_GPIO_Port, LY01_Pin, GPIO_PIN_SET);
-	          HAL_GPIO_WritePin(LR01_GPIO_Port, LR01_Pin, GPIO_PIN_RESET);
-
-	          // Trục 2: Tắt Đỏ, Bật Xanh
-	          HAL_GPIO_WritePin(LR02_GPIO_Port, LR02_Pin, GPIO_PIN_SET);
-	          HAL_GPIO_WritePin(LG02_GPIO_Port, LG02_Pin, GPIO_PIN_RESET);
-	      }
-
-	      // --- PHA 4: Trục 1 vẫn ĐỎ | Trục 2 VÀNG (2s) ---
-	      else if (counter == 8) {
-	          // Trục 1: Giữ nguyên trạng thái Đỏ từ Pha 3
-
-	          // Trục 2: Tắt Xanh, Bật Vàng
-	          HAL_GPIO_WritePin(LG02_GPIO_Port, LG02_Pin, GPIO_PIN_SET);
-	          HAL_GPIO_WritePin(LY02_GPIO_Port, LY02_Pin, GPIO_PIN_RESET);
-	      }
-
-	      // Tăng biến đếm và Delay
-	      counter++;
-	      if (counter >= 10) {
-	          counter = 0;
-	      }
-	      HAL_Delay(1000);
+	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
     }
   /* USER CODE END 3 */
@@ -192,27 +186,19 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LR01_Pin|LY01_Pin|LG01_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, s0_Pin|s1_Pin|s2_Pin|s3_Pin
+                          |s4_Pin|s5_Pin|s6_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LR02_Pin|LY02_Pin|LG02_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pins : LR01_Pin LY01_Pin LG01_Pin */
-  GPIO_InitStruct.Pin = LR01_Pin|LY01_Pin|LG01_Pin;
+  /*Configure GPIO pins : s0_Pin s1_Pin s2_Pin s3_Pin
+                           s4_Pin s5_Pin s6_Pin */
+  GPIO_InitStruct.Pin = s0_Pin|s1_Pin|s2_Pin|s3_Pin
+                          |s4_Pin|s5_Pin|s6_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : LR02_Pin LY02_Pin LG02_Pin */
-  GPIO_InitStruct.Pin = LR02_Pin|LY02_Pin|LG02_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
 
