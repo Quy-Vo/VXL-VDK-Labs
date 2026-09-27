@@ -61,6 +61,17 @@ static void MX_GPIO_Init(void);
   * @brief  The application entry point.
   * @retval int
   */
+uint16_t clock_pins[12] = {
+      CLK11_Pin, CLK0_Pin, CLK1_Pin, CLK2_Pin,
+      CLK3_Pin, CLK4_Pin, CLK5_Pin, CLK6_Pin,
+      CLK7_Pin, CLK8_Pin, CLK9_Pin, CLK10_Pin
+};
+
+void clearAllClock() {
+    for (int i = 0; i < 12; i++) {
+        HAL_GPIO_WritePin(GPIOA, clock_pins[i], GPIO_PIN_SET);
+    }
+}
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -93,11 +104,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
   /* USER CODE BEGIN 0 */
-  uint16_t clock_pins[12] = {
-        CLK11_Pin, CLK0_Pin, CLK1_Pin, CLK2_Pin,
-        CLK3_Pin, CLK4_Pin, CLK5_Pin, CLK6_Pin,
-        CLK7_Pin, CLK8_Pin, CLK9_Pin, CLK10_Pin
-  };
+
   int led_index = 0;
 
   /* USER CODE END 0 */
@@ -105,18 +112,16 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  for (int i = 0; i < 12; i++) {
-	            HAL_GPIO_WritePin(GPIOA, clock_pins[i], GPIO_PIN_SET);
-	        }
+	  clearAllClock();
 
 
-	  	  	HAL_GPIO_WritePin(GPIOA, clock_pins[led_index], GPIO_PIN_RESET);
+	  HAL_GPIO_WritePin(GPIOA, clock_pins[led_index], GPIO_PIN_RESET);
 
 
-	        led_index++;
-	        if (led_index >= 12) {
-	            led_index = 0;
-	        }
+	  led_index++;
+      if (led_index >= 12) {
+			led_index = 0;
+	  }
 
 
 	        HAL_Delay(500);
