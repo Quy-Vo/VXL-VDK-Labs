@@ -86,7 +86,9 @@ void clearNumberOnClock(int num) {
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	  int h = 0;
+	  int m = 0;
+	  int s = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -115,26 +117,37 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
   /* USER CODE BEGIN 0 */
-  clearAllClock();
-  int led_index = 0;
+
 
   /* USER CODE END 0 */
 
   while (1)
   {
     /* USER CODE END WHILE */
-	  setNumberOnClock(led_index);
+	  int idx_s = s / 5;
+	  int idx_m = m / 5;
+	  int idx_h = h;
 
-      HAL_Delay(500);
+	  clearAllClock();
+	  setNumberOnClock(idx_h);
+	  setNumberOnClock(idx_m);
+      setNumberOnClock(idx_s);
 
-
-      clearNumberOnClock(led_index);
-
-
-	  led_index++;
-      if (led_index >= 12) {
-			led_index = 0;
+      s++;
+      if (s >= 60) {
+		s = 0;
+		m++;
 	  }
+      if (m >= 60) {
+		m = 0;
+		h++;
+	  }
+	  if (h >= 12) {
+		h = 0;
+	  }
+
+
+	  HAL_Delay(10);
 
 
 
