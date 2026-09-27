@@ -58,46 +58,30 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define s00_Pin GPIO_PIN_0
-#define s00_GPIO_Port GPIOA
-#define s01_Pin GPIO_PIN_1
-#define s01_GPIO_Port GPIOA
-#define s02_Pin GPIO_PIN_2
-#define s02_GPIO_Port GPIOA
-#define s03_Pin GPIO_PIN_3
-#define s03_GPIO_Port GPIOA
-#define s04_Pin GPIO_PIN_4
-#define s04_GPIO_Port GPIOA
-#define s05_Pin GPIO_PIN_5
-#define s05_GPIO_Port GPIOA
-#define s06_Pin GPIO_PIN_6
-#define s06_GPIO_Port GPIOA
-#define s0_Pin GPIO_PIN_0
-#define s0_GPIO_Port GPIOB
-#define s1_Pin GPIO_PIN_1
-#define s1_GPIO_Port GPIOB
-#define s2_Pin GPIO_PIN_2
-#define s2_GPIO_Port GPIOB
-#define LR01_Pin GPIO_PIN_8
-#define LR01_GPIO_Port GPIOA
-#define LY01_Pin GPIO_PIN_9
-#define LY01_GPIO_Port GPIOA
-#define LG01_Pin GPIO_PIN_10
-#define LG01_GPIO_Port GPIOA
-#define LR02_Pin GPIO_PIN_11
-#define LR02_GPIO_Port GPIOA
-#define LY02_Pin GPIO_PIN_12
-#define LY02_GPIO_Port GPIOA
-#define LG02_Pin GPIO_PIN_13
-#define LG02_GPIO_Port GPIOA
-#define s3_Pin GPIO_PIN_3
-#define s3_GPIO_Port GPIOB
-#define s4_Pin GPIO_PIN_4
-#define s4_GPIO_Port GPIOB
-#define s5_Pin GPIO_PIN_5
-#define s5_GPIO_Port GPIOB
-#define s6_Pin GPIO_PIN_6
-#define s6_GPIO_Port GPIOB
+#define CLK0_Pin GPIO_PIN_4
+#define CLK0_GPIO_Port GPIOA
+#define CLK1_Pin GPIO_PIN_5
+#define CLK1_GPIO_Port GPIOA
+#define CLK2_Pin GPIO_PIN_6
+#define CLK2_GPIO_Port GPIOA
+#define CLK3_Pin GPIO_PIN_7
+#define CLK3_GPIO_Port GPIOA
+#define CLK4_Pin GPIO_PIN_8
+#define CLK4_GPIO_Port GPIOA
+#define CLK5_Pin GPIO_PIN_9
+#define CLK5_GPIO_Port GPIOA
+#define CLK6_Pin GPIO_PIN_10
+#define CLK6_GPIO_Port GPIOA
+#define CLK7_Pin GPIO_PIN_11
+#define CLK7_GPIO_Port GPIOA
+#define CLK8_Pin GPIO_PIN_12
+#define CLK8_GPIO_Port GPIOA
+#define CLK9_Pin GPIO_PIN_13
+#define CLK9_GPIO_Port GPIOA
+#define CLK10_Pin GPIO_PIN_14
+#define CLK10_GPIO_Port GPIOA
+#define CLK11_Pin GPIO_PIN_15
+#define CLK11_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
