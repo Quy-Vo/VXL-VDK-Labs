@@ -56,7 +56,19 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+int timer0_counter = 0;
+int timer0_flag = 0;
+int TIMER_CYCLE = 10;
+void setTimer0 ( int duration ) {
+	timer0_counter = duration / TIMER_CYCLE ;
+	timer0_flag = 0;
+}
+void timer_run () {
+	if( timer0_counter > 0){
+		timer0_counter--;
+		if( timer0_counter == 0) timer0_flag = 1;
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -157,12 +169,17 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT (& htim2 );
+  setTimer0(1000);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if (timer0_flag == 1) {
+		  HAL_GPIO_TogglePin(LR_GPIO_Port, LR_Pin);
+		  setTimer0(2000);
+	  }
 	  second++;
     /* USER CODE END WHILE */
 	  if (second >= 60) {
@@ -179,7 +196,6 @@ int main(void)
   }
   /* USER CODE END 3 */
 }
-
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -303,6 +319,7 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim){
+	timer_run();
 	counter--;
     if (counter <= 0){
     	counter = 25;
