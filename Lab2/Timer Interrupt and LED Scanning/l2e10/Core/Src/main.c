@@ -62,6 +62,8 @@ int timer1_counter = 0;
 int timer1_flag = 0;
 int timer2_counter = 0;
 int timer2_flag = 0;
+int timer3_counter = 0;
+int timer3_flag = 0;
 int TIMER_CYCLE = 10;
 void setTimer0 ( int duration ) {
 	timer0_counter = duration / TIMER_CYCLE ;
@@ -75,6 +77,10 @@ void setTimer2 ( int duration ) {
 	timer2_counter = duration / TIMER_CYCLE ;
 	timer2_flag = 0;
 }
+void setTimer3 ( int duration ) {
+	timer3_counter = duration / TIMER_CYCLE ;
+	timer3_flag = 0;
+}
 void timer_run () {
 	if( timer0_counter > 0){
 		timer0_counter--;
@@ -87,7 +93,11 @@ void timer_run () {
 	if( timer2_counter > 0){
 		timer2_counter--;
 		if( timer2_counter == 0) timer2_flag = 1;
-		}
+	}
+	if( timer3_counter > 0){
+			timer3_counter--;
+			if( timer3_counter == 0) timer3_flag = 1;
+	}
 }
 /* USER CODE END 0 */
 
@@ -206,6 +216,13 @@ void updateLEDMatrix (int index ) {
 			break;
 	}
 }
+void shiftleft (){
+	uint8_t first_col = matrix_buffer[0];
+	for (int i = 0; i< 7; i++){
+		matrix_buffer[i] = matrix_buffer[i+1];
+	}
+	matrix_buffer[7] = first_col;
+}
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -238,14 +255,15 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   int toggle_count = 0;
-  setTimer0(500);
+  setTimer0(1000);
   setTimer1(250);
   setTimer2(10);
+  setTimer3(200);
   while (1)
   {
 	  if (timer0_flag == 1)
 	  {
-		  setTimer0(500);
+		  setTimer0(1000);
 		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 		  toggle_count++;
 		  if (toggle_count>= 2){
@@ -276,6 +294,10 @@ int main(void)
 		  updateLEDMatrix(index_led_matrix);
 		  index_led_matrix++;
 		  if (index_led_matrix >= MAX_LED_MATRIX) index_led_matrix = 0;
+	  }
+	  if (timer3_flag == 1) {
+		  setTimer3(200);
+		  shiftleft();
 	  }
     /* USER CODE BEGIN 3 */
   }
