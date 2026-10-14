@@ -250,7 +250,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-int counter = 50;
+int counter = 25;
 int led = 0;
 const int MAX_LED = 4;
 int index_led = 0;
@@ -268,6 +268,8 @@ void update7SEG(int index)
         case 0:
             display7SEG(led_buffer[0]);
             HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, GPIO_PIN_RESET);
+            HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+
             break;
         case 1:
             display7SEG(led_buffer[1]);
@@ -280,6 +282,7 @@ void update7SEG(int index)
         case 3:
             display7SEG(led_buffer[3]);
             HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, GPIO_PIN_RESET);
+
             break;
         default:
             break;
